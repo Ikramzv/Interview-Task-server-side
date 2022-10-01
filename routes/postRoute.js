@@ -44,6 +44,18 @@ router.post("/posts", auth, async (req, res) => {
   }
 });
 
+router.delete("/post/:postId", auth, async (req, res) => {
+  const { postId } = req.params;
+  if (!req.user.admin)
+    return res.status(403).send("Only admin can delete post");
+  try {
+    await Post.findByIdAndDelete(postId);
+    return res.status(200).send("Post successfully deleted");
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+});
+
 // Add comment
 
 router.patch("/comment/:postId", auth, async (req, res) => {

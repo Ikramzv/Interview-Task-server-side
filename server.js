@@ -41,17 +41,17 @@ app.get("/", (req, res) => {
   res.send("App is running");
 });
 
-// app.post("/", async (req, res) => {
-//   const models = mongoose.models;
-//   const posts = await models.User.updateMany(
-//     {},
-//     {
-//       $set: { points: 0 },
-//     },
-//     { new: true }
-//   );
-//   return res.status(200).json(posts);
-// });
+app.post("/", async (req, res) => {
+  const models = mongoose.models;
+  const posts = await models.User.updateMany(
+    {},
+    {
+      $set: { points: 0 },
+    },
+    { new: true }
+  );
+  return res.status(200).json(posts);
+});
 
 mongoose.connect(process.env.MONGO_URL, { dbName: "tenter" }, () =>
   console.log("MongoDB has been connected")
